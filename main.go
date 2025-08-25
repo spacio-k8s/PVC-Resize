@@ -1,6 +1,6 @@
 package main
 
-import "Zero/cmd"
+import "resize-assistant/cmd"
 
 func main() {
 	cmd.Execute()

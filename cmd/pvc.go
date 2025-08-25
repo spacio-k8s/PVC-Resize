@@ -49,7 +49,7 @@ var overprovisionedCmd = &cobra.Command{
 }
 
 func findOverprovisionedPVCs() error {
-	clientset, err := getClientSet(kubeconfig)
+	clientset, err := getClientSett(kubeconfig)
 	if err != nil {
 		return fmt.Errorf("❌ Failed to create Kubernetes client: %v", err)
 	}
@@ -66,7 +66,7 @@ func findOverprovisionedPVCs() error {
 	return nil
 }
 
-func getClientSet(kubeconfigPath string) (*kubernetes.Clientset, error) {
+func getClientSett(kubeconfigPath string) (*kubernetes.Clientset, error) {
 	if kubeconfigPath != "" {
 		flag.Set("logtostderr", "true")
 		config, err := clientcmd.BuildConfigFromFlags("", kubeconfigPath)
