@@ -1,72 +1,89 @@
-# 📂 Project Structure
+#  Spacio : PVC-Auditor
 
-### **`analyze.go`**
+**pvc-auditor** is an **open-source Kubernetes CLI and agent** that helps teams **find and understand PersistentVolumeClaim (PVC) waste** in their clusters.
 
-Implements the **`analyze`** command with subcommands:
+Kubernetes makes it easy to allocate storage, but hard to track how much is actually used. Over time, this leads to:
 
-* **`analyze cluster`** → Summarizes cluster-wide resources (total nodes, pods, storage classes).
-* **`analyze nodes`** → Displays per-node allocatable CPU, memory, and storage.
+- PVCs that are over-provisioned (e.g. 500 Gi allocated, only 20 Gi used)
 
----
+- PVCs that are unused or orphaned (left behind after workload deletion)
 
-### **`monitor.go`**
+- PVCs that are expensive to maintain across cloud providers
 
-Implements the **`monitor`** command:
+For platform teams, **this creates hidden costs, wasted resources, and operational risk.**
 
-* Continuously queries **Prometheus** for pod/container CPU and memory usage.
-* Compares **current usage vs. requests** against configurable thresholds.
-* Generates **resize recommendations** (increase or decrease).
-* Supports `--auto-apply` flag (currently simulated, does not modify workloads).
+**pvc-auditor solves this problem by auditing your cluster’s PVCs and generating detailed reports:**
 
----
+- CLI reports for automation pipelines
 
-### **`pvc.go`**
+- JSON/YAML outputs for GitOps and integrations
 
-Implements the **`pvc`** command with subcommand:
+- Rich HTML dashboards for engineers and managers to review
 
-* **`pvc overprovisioned`** → Scans all PersistentVolumeClaims and detects wasted storage.
-* Uses annotation **`resize-cltool/used-storage`** to compare **requested vs. actual usage**.
+The result: **clear visibility into storage usage, waste, and savings potential.**
 
----
+### Why PVC-Auditor?
 
-### **`root.go`**
+- **Visibility first** → know what storage is allocated vs. actually used
 
-Defines the **root CLI command** `resize-assistant`:
+- **Safe by design**  → auditing only, no risky shrinking logic in the OSS CLI
 
-* Entry point for all subcommands (`analyze`, `monitor`, `pvc`, `simulate`).
-* Provides global description and help menu.
+- **Cloud agnostic** → works on AWS EBS, GCP PD, Azure Disk, and any CSI driver
 
----
+- **Contributor-friendly** → simple Go/Python codebase, great for students & OSS devs
 
-### **`simulate.go`**
+- **Path to automation** → upgrade to the SaaS edition for shrinking, policies, and multi-cluster support
 
-Implements the **`simulate`** command:
+### How It Fits
 
-* Creates a **test namespace** (`resize-test`).
-* Deploys workloads with different resource usage patterns:
+✅ **Open Source** (this repo): Single-cluster audits, reports, developer contributions
 
-  * CPU-intensive
-  * Memory-hungry
-  * Bursty
-  * Underutilized
-  * Balanced
-* Creates PVCs with simulated usage annotations:
+🔒 **Enterprise SaaS**: Multi-cluster management, automated shrinking, approvals, RBAC, dashboards
 
-  * Overprovisioned
-  * Well-sized
-  * Underprovisioned
-* Supports `--cleanup` to remove all simulation resources.
+Think of **pvc-auditor** as your first step toward **cost-aware Kubernetes storage management.**
+Audit today. Shrink tomorrow. 🚀
 
----
 
-### **`utils.go`**
+## ✨ Features (Open Source)
 
-Provides **utility functions**:
+- **Quick Setup** — lightweight CLI & agent  
+-  **PVC Discovery** — scan all PVCs in a cluster  
+- **Usage vs Allocation Reports** — output as Table, JSON, YAML, or HTML  
+- **Wastage Detection** — unused, orphaned, and over-provisioned volumes  
+-  **Cloud-Agnostic** — AWS EBS, GCP PD, Azure Disk, on-prem CSI  
+- **Single-Cluster Focus** — MVP works per cluster (multi-cluster in SaaS)  
 
-* **`getClientSet`** → Creates a Kubernetes clientset:
 
-  * Uses **in-cluster config** (when running inside Kubernetes).
-  * Falls back to **local kubeconfig** when available.
-* Shared helper across all commands for Kubernetes API access.
 
----
+## Installation
+
+```bash
+# Clone repo
+git clone <>
+cd pvc-auditor
+
+# Build CLI
+go build -o pvc-auditor ./cmd
+
+# Run audit
+./pvc-auditor audit --output html
+
+## Example Report
+
+## Contributing
+
+We welcome contributors of all experience levels 🙌
+
+Ways you can help:
+
+- Add support for new StorageClasses
+- Improve HTML dashboards
+- Add CLI flags for filtering/sorting
+- Write tests for PVC scanning logic
+
+Expand docs & tutorials
+
+📘 See CONTRIBUTING.md to get started.
+
+We use GitHub Issues for bugs/features and Discussions for roadmap ideas.
+Look for good first issue and help wanted labels to dive in!
