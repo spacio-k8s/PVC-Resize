@@ -159,7 +159,6 @@ The dashboard provides:
 * Unattached or orphaned PVCs
 * Top over-provisioned PVCs
 
-📌 **Tip:** Keep the JSON dashboard under `docs/grafana/` in your repo for easy access and versioning.
 
 ### Sample Grafana Dashboard 
 ![Grafana Dashboard](https://raw.githubusercontent.com/spacio-k8s/PVCAuditor/refs/heads/main/images/sample_grafana_dashboard.jpeg?token=GHSAT0AAAAAADL7XPZUJR6EI3J5DMVI5VY42GW52SQ)
