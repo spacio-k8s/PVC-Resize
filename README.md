@@ -1,89 +1,151 @@
-#  Spacio : PVC-Auditor
+# 🗂️ Spacio: PVC-Auditor  
 
-**pvc-auditor** is an **open-source Kubernetes CLI and agent** that helps teams **find and understand PersistentVolumeClaim (PVC) waste** in their clusters.
-
-Kubernetes makes it easy to allocate storage, but hard to track how much is actually used. Over time, this leads to:
-
-- PVCs that are over-provisioned (e.g. 500 Gi allocated, only 20 Gi used)
-
-- PVCs that are unused or orphaned (left behind after workload deletion)
-
-- PVCs that are expensive to maintain across cloud providers
-
-For platform teams, **this creates hidden costs, wasted resources, and operational risk.**
-
-**pvc-auditor solves this problem by auditing your cluster’s PVCs and generating detailed reports:**
-
-- CLI reports for automation pipelines
-
-- JSON/YAML outputs for GitOps and integrations
-
-- Rich HTML dashboards for engineers and managers to review
-
-The result: **clear visibility into storage usage, waste, and savings potential.**
-
-### Why PVC-Auditor?
-
-- **Visibility first** → know what storage is allocated vs. actually used
-
-- **Safe by design**  → auditing only, no risky shrinking logic in the OSS CLI
-
-- **Cloud agnostic** → works on AWS EBS, GCP PD, Azure Disk, and any CSI driver
-
-- **Contributor-friendly** → simple Go/Python codebase, great for students & OSS devs
-
-- **Path to automation** → upgrade to the SaaS edition for shrinking, policies, and multi-cluster support
-
-### How It Fits
-
-✅ **Open Source** (this repo): Single-cluster audits, reports, developer contributions
-
-🔒 **Enterprise SaaS**: Multi-cluster management, automated shrinking, approvals, RBAC, dashboards
-
-Think of **pvc-auditor** as your first step toward **cost-aware Kubernetes storage management.**
-Audit today. Shrink tomorrow. 🚀
+`pvc-auditor` is a Kubernetes CLI tool that **tracks PersistentVolumeClaim (PVC) usage and wastage**.  It helps platform teams, SREs, and developers **identify unused or underutilized storage**, reducing costs and improving efficiency.  
 
 
-## ✨ Features (Open Source)
+## 🌍 Context  
+Kubernetes makes it easy to allocate storage, but hard to track how much is actually used. Over time, this leads to:  
+- PVCs that are **over-provisioned** (e.g. 500 Gi allocated, only 20 Gi used)  
+- PVCs that are **unused or orphaned** (left behind after workload deletion)  
+- PVCs that are **expensive** to maintain across cloud providers  
 
-- **Quick Setup** — lightweight CLI & agent  
--  **PVC Discovery** — scan all PVCs in a cluster  
-- **Usage vs Allocation Reports** — output as Table, JSON, YAML, or HTML  
-- **Wastage Detection** — unused, orphaned, and over-provisioned volumes  
--  **Cloud-Agnostic** — AWS EBS, GCP PD, Azure Disk, on-prem CSI  
-- **Single-Cluster Focus** — MVP works per cluster (multi-cluster in SaaS)  
+For platform teams, this creates **hidden costs, wasted resources, and operational risk**.  
+
+**PVC-Auditor solves this by auditing your cluster’s PVCs and generating reports** with clear visibility into storage usage, waste, and savings potential.  
+
+## 🚀 Why PVC-Auditor?  
+
+- **Visibility first** → know what’s allocated vs. actually used  
+- **Safe by design** → auditing only, no risky shrinking in OSS (shrinking in SaaS)  
+- **Cloud agnostic** → works with AWS EBS, GCP PD, Azure Disk, and any CSI driver  
+- **Contributor-friendly** → simple Go/Python codebase, great for students & OSS devs  
+- **Path to automation** → start with audits, upgrade to SaaS for policies + shrinking  
 
 
+## ⚖️ Open Source vs Enterprise  
 
-## Installation
+💼 Enterprise Contact: For SaaS inquiries, pricing, or support, reach out at pvcauditor@gmail.com
+
+| Feature | Open Source (CLI) | Enterprise SaaS |
+|---------|------------------|-----------------|
+| **Quick Setup** | ✅ Lightweight CLI & agent | ✅ Same simplicity, SaaS dashboard |
+| **PVC Discovery** | ✅ Scan all PVCs in a cluster | ✅ Multi-cluster discovery |
+| **Usage vs Allocation Reports** | ✅ Text-based reports | ✅ Rich dashboards & analytics |
+| **Wastage Detection** | ✅ Find unused, orphaned, over-provisioned PVCs | ✅ Automated cleanup + alerts |
+| **Cluster Scope** | ✅ Single-cluster only | 🌐 Multi-cluster visibility |
+| **Automation** | ❌ Manual review only | 🤖 Auto-shrinking & policies |
+| **Governance** | ❌ Not included | 🔒 RBAC, approvals, policy enforcement |
+| **Integrations** | ❌ Not included | 🔔 Slack, Jira, Cloud cost tools |
+
+👉 Think of **PVC-Auditor OSS** as your **storage magnifying glass**  
+👉 And **Enterprise SaaS** as your **cost-optimization autopilot**  
+
+
+## ✨ Features (Open Source)  
+
+- ⚡ **Quick Setup** — lightweight CLI & agent  
+- 🔍 **PVC Discovery** — scan all PVCs in a cluster  
+- 📊 **Usage vs Allocation Reports** — see storage requests vs actual usage  
+- 🗑️ **Wastage Detection** — find unused, orphaned, and over-provisioned volumes  
+- 🎯 **Single-Cluster Focus** — MVP designed per cluster (multi-cluster in SaaS)  
+- 🔗 **Pod Mapping** — see which PVCs are attached (or unattached) to pods
+- 🛠 **Test Mode** — inject dummy usage data for demo & validation
+- 📡**Prometheus Metrics** — export stats for Grafana dashboards
+
+
+## 🔒 Enterprise SaaS Features  
+
+Upgrade for **automation, scale, and governance**:  
+
+- 🌐 **Multi-Cluster Management** — centralized visibility across clusters  
+- 🤖 **Automated Shrinking** — safely resize PVCs to right-size capacity  
+- 🛡️ **Policy-Driven Governance** — org-wide storage usage rules  
+- ✅ **Approval Workflows** — integrate with DevOps/SRE review  
+- 👥 **RBAC** — fine-grained team-based permissions  
+- 📈 **Dashboards & Analytics** — visual insights for finance, ops & platform teams  
+- 🔔 **Integrations** — Slack, Jira, and cloud cost dashboards  
+
+
+## ⚡ Installation  
 
 ```bash
 # Clone repo
-git clone <>
+git clone https://github.com/spacio-k8s/PVCAuditor.git
 cd pvc-auditor
 
 # Build CLI
-go build -o pvc-auditor ./cmd
+go mod tidy
+go build -o pvc-auditor main.go
 
 # Run audit
-./pvc-auditor audit --output html
+./pvc-auditor audit --all-namespace
+```
 
-## Example Report
 
-## Contributing
+## 📊 Example Report  
+
+```bash
+PVC Audit Summary Report
+──────────────────────────────────────────────
+Cluster Name           : K8sCluster-1.33
+Generated At           : 2025-09-26 23:19:16
+Total Namespaces Audited : 13
+Total PVCs Audited       : 14
+
+PVC Space Summary
+──────────────────────────────────────────────
+Total Allocated Space (GB) : 40.00 GB
+Total Used Space (GB)      : 0.59 GB
+Total Wasted Space (GB)    : 39.41 GB
+Wastage Percentage         : 98.5%
+
+PVC Wastage Details
+──────────────────────────────────────────────
+PVCs with High Wastage (≥80%) : 4
+Unattached PVCs              : 10
+Cleanup Candidates           : 4
+
+Top 5 High Wastage PVCs
+──────────────────────────────────────────────
+< PVC Details in table as shown below> 
+```
+## Sample PVC Audit Report  :
+
+
+| Namespace       | PVC Name          | Allocated  | Used     | Wasted   | Used (%) | Wastage (%) | Status        |
+|-----------------|-----------------|-----------|----------|----------|----------|-------------|---------------|
+| default         | prometheus       | 10 GB     | 0 GB     | 10 GB    | 0 %      | 100 %       | ![Unused](https://img.shields.io/badge/Unused-9e9e9e?style=flat-square&logo=kubernetes&logoColor=white) |
+| pvc-test        | test-pvc-small   | 5 GB      | 1 GB     | 4 GB     | 20 %     | 80 %        | ![Over-provisioned](https://img.shields.io/badge/Over--provisioned-ff9800?style=flat-square&logo=kubernetes&logoColor=white) |
+| pvc-critical    | app-cache        | 10 GB     | 9 GB     | 1 GB     | 90 %     | 10 %        | ![Critical](https://img.shields.io/badge/Critical-d32f2f?style=flat-square&logo=kubernetes&logoColor=white) |
+| pvc-healthy     | db-storage       | 15 GB     | 14 GB    | 1 GB     | 93 %     | 7 %         | ![Healthy](https://img.shields.io/badge/Healthy-4caf50?style=flat-square&logo=kubernetes&logoColor=white) |
+
+
+
+
+### 📖 Legend  
+-  **Over-provisioned** → PVC has far more allocated than used , more than 70%
+- **Unused** → PVC allocated but not used at all (candidate for deletion)  
+- **Critical** → PVC used nearly full (risk of outage)  
+
+
+
+# 🤝 Contributing
 
 We welcome contributors of all experience levels 🙌
 
-Ways you can help:
-
-- Add support for new StorageClasses
-- Improve HTML dashboards
-- Add CLI flags for filtering/sorting
-- Write tests for PVC scanning logic
-
-Expand docs & tutorials
+* Expand docs & tutorials
+* Add features & bug fixes
+* Improve CLI experience
 
 📘 See CONTRIBUTING.md to get started.
 
-We use GitHub Issues for bugs/features and Discussions for roadmap ideas.
-Look for good first issue and help wanted labels to dive in!
+## 📜 License
+
+Licensed under [Apache 2.0](./LICENSE).
+
+## 💼 Enterprise Contact
+
+For Enterprise SaaS inquiries, pricing, or support, please contact us at: 📧 pvcauditor@gmail.com
+
+
+👉 This README is user-facing, while `PVC_AUDIT_CLI_GUIDE.md` can be a **detailed reference** for all flags and examples.
