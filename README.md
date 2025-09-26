@@ -94,16 +94,16 @@ Total PVCs Audited       : 14
 
 PVC Space Summary
 ──────────────────────────────────────────────
-Total Allocated Space (GB) : 40.00 GB
-Total Used Space (GB)      : 0.59 GB
-Total Wasted Space (GB)    : 39.41 GB
-Wastage Percentage         : 98.5%
+Total Allocated Space (GB) : 30.00 GB
+Total Used Space (GB)      : 24.00 GB
+Total Wasted Space (GB)    : 16 GB
+Wastage Percentage         : 53.33%
 
 PVC Wastage Details
 ──────────────────────────────────────────────
-PVCs with High Wastage (≥80%) : 4
+PVCs with High Wastage (≥80%) : 2
 Unattached PVCs              : 10
-Cleanup Candidates           : 4
+Cleanup Candidates           : 2
 
 Top 5 High Wastage PVCs
 ──────────────────────────────────────────────
@@ -127,6 +127,42 @@ Top 5 High Wastage PVCs
 - **Unused** → PVC allocated but not used at all (candidate for deletion)  
 - **Critical** → PVC used nearly full (risk of outage)  
 
+
+
+## 📊 Grafana Dashboard Integration
+
+PVC-Auditor can export metrics for visualization in Grafana. Follow these steps to set it up:
+
+
+
+### 1️⃣ Run PVC-Auditor with metrics export
+```bash
+./pvc-auditor audit --all-namespace --server-ip <IP>
+```
+
+* Replace `<IP>` with your Kubernetes API server or metrics endpoint.
+* This will expose Prometheus-compatible metrics.
+
+### 2️⃣ Import Dashboard into Grafana
+
+1. Open Grafana → **Dashboards → Manage → Import**
+2. Upload the downloaded JSON file for the PVC-Auditor dashboard ((Ref: PVC_Stats_Grafana.json)
+3. Select the Prometheus data source used by PVC-Auditor
+4. Click **Import**
+
+### 3️⃣ View Metrics
+
+The dashboard provides:
+
+* PVC usage vs allocated space
+* Wasted storage per namespace
+* Unattached or orphaned PVCs
+* Top over-provisioned PVCs
+
+📌 **Tip:** Keep the JSON dashboard under `docs/grafana/` in your repo for easy access and versioning.
+
+### Sample Grafana Dashboard 
+![Grafana Dashboard](https://raw.githubusercontent.com/spacio-k8s/PVCAuditor/refs/heads/main/images/sample_grafana_dashboard.jpeg?token=GHSAT0AAAAAADL7XPZUJR6EI3J5DMVI5VY42GW52SQ)
 
 
 # 🤝 Contributing
