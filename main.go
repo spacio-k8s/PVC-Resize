@@ -1,7 +1,12 @@
 package main
 
-import "resize-assistant/cmd"
+import (
+	"log"
+	"pvc-audit/cmd"
+)
 
 func main() {
-	cmd.Execute()
+	if err := cmd.Execute(); err != nil {
+		log.Fatalf("Error executing pvc-audit: %v", err)
+	}
 }
