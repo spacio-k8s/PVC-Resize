@@ -121,7 +121,7 @@ Top 5 High Wastage PVCs
 | default         | prometheus       | 10 GB     | 0 GB     | 10 GB    | 0 %      | 100 %       | ![Unused](https://img.shields.io/badge/Unused-9e9e9e?style=flat-square&logo=kubernetes&logoColor=white) |
 | pvc-test        | test-pvc-small   | 5 GB      | 1 GB     | 4 GB     | 20 %     | 80 %        | ![Over-provisioned](https://img.shields.io/badge/Over--provisioned-ff9800?style=flat-square&logo=kubernetes&logoColor=white) |
 | pvc-critical    | app-cache        | 10 GB     | 9 GB     | 1 GB     | 90 %     | 10 %        | ![Critical](https://img.shields.io/badge/Critical-d32f2f?style=flat-square&logo=kubernetes&logoColor=white) |
-| pvc-healthy     | db-storage       | 15 GB     | 8 GB    | 7 GB     |  50%     | 40 %         | ![Healthy](https://img.shields.io/badge/Healthy-4caf50?style=flat-square&logo=kubernetes&logoColor=white) |
+| pvc-healthy     | db-storage       | 10 GB     | 6 GB    | 7 GB     |  60%     | 40 %         | ![Healthy](https://img.shields.io/badge/Healthy-4caf50?style=flat-square&logo=kubernetes&logoColor=white) |
 
 
 
