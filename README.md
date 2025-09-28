@@ -36,7 +36,10 @@ For platform teams, this creates **hidden costs, wasted resources, and operation
 | **Automation** | ❌ Manual review only | 🤖  Auto-managed PVCs (resize + cleanup)|
 | **Governance** | ❌ Not included | 🔒 RBAC, approvals, policy enforcement |
 | **Integrations** | ❌ Not included | 🔔 Slack, Jira, Cloud cost tools |
+
+
 👉 Think of **PVC-Auditor OSS** as your **storage magnifying glass**
+
 👉 And **Enterprise SaaS** as your **cost-optimization autopilot** — PVCs are automatically managed, resized, and cleaned up without manual effort.
 
 ## ✨ Features (Open Source)  
