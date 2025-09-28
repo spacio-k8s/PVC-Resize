@@ -33,13 +33,11 @@ For platform teams, this creates **hidden costs, wasted resources, and operation
 | **Usage vs Allocation Reports** | ✅ Text-based reports | ✅ Rich dashboards & analytics |
 | **Wastage Detection** | ✅ Find unused, orphaned, over-provisioned PVCs | ✅ Automated cleanup + alerts |
 | **Cluster Scope** | ✅ Single-cluster only | 🌐 Multi-cluster visibility |
-| **Automation** | ❌ Manual review only | 🤖 Auto-shrinking & policies |
+| **Automation** | ❌ Manual review only | 🤖  Auto-managed PVCs (resize + cleanup)|
 | **Governance** | ❌ Not included | 🔒 RBAC, approvals, policy enforcement |
 | **Integrations** | ❌ Not included | 🔔 Slack, Jira, Cloud cost tools |
-
-👉 Think of **PVC-Auditor OSS** as your **storage magnifying glass**  
-👉 And **Enterprise SaaS** as your **cost-optimization autopilot**  
-
+👉 Think of **PVC-Auditor OSS** as your **storage magnifying glass**
+👉 And **Enterprise SaaS** as your **cost-optimization autopilot** — PVCs are automatically managed, resized, and cleaned up without manual effort.
 
 ## ✨ Features (Open Source)  
 
@@ -74,8 +72,11 @@ git clone https://github.com/spacio-k8s/PVCAuditor.git
 cd pvc-auditor
 
 # Build CLI
-go mod tidy
-go build -o pvc-auditor main.go
+    cd src
+    go mod tidy
+    go build -o pvc-auditor main.go
+or 
+    make tidy build
 
 # Run audit
 ./pvc-auditor audit --all-namespace
