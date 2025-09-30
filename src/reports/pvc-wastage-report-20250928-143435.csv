@@ -1,0 +1,3 @@
+Namespace,PVC Name,Allocated,Used,Wasted,Used(%),Wastage(%),Attached Pod,Category
+default,prometheus-server,10.00 GB,0.00 MB,10.00 GB,0,100,prometheus-server-5d877c6bb8-sv2fr,Unused
+default,storage-prometheus-alertmanager-0,10.00 GB,1.00 MB,10.00 GB,0,99,prometheus-alertmanager-0,Over-provisioned
