@@ -165,8 +165,7 @@ The dashboard provides:
 
 
 ### Sample Grafana Dashboard 
-![Grafana Dashboard](https://raw.githubusercontent.com/spacio-k8s/PVCAuditor/refs/heads/main/images/sample_grafana_dashboard.jpeg?token=GHSAT0AAAAAADL7XPZUJR6EI3J5DMVI5VY42GW52SQ)
-
+![Grafana Dashboard](https://github.com/spacio-k8s/PVCAuditor/blob/main/images/sample_grafana_dashboard.jpeg?raw=true)
 
 # 🤝 Contributing
 
