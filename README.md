@@ -150,7 +150,7 @@ PVC-Auditor can export metrics for visualization in Grafana. Follow these steps 
 ### 2️⃣ Import Dashboard into Grafana
 
 1. Open Grafana → **Dashboards → Manage → Import**
-2. Upload the downloaded JSON file for the PVC-Auditor dashboard ((Ref: PVC_Stats_Grafana.json)
+2. Upload the downloaded JSON file for the PVC-Auditor dashboard ((Ref: docs/grafan/PVC_Stats_Grafana.json)
 3. Select the Prometheus data source used by PVC-Auditor
 4. Click **Import**
 
