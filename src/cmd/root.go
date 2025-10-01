@@ -7,8 +7,13 @@ var (
 	namespace     string
 	allNamespaces bool
 	rootCmd       = &cobra.Command{
-		Use:   "pvc-audit",
-		Short: "PVC Audit CLI",
+		Use:   "spacio",
+		Short: "Spacio PVC Auditor - Audit wasted PVC storage in Kubernetes clusters",
+		Long: `Spacio PVC Auditor helps you identify:
+  - Wasted PVC storage
+  - Orphaned volumes
+  - Over-provisioned PVCs
+across your Kubernetes cluster.`,
 	}
 )
 
