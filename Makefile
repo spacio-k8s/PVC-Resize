@@ -7,10 +7,11 @@
 #make lint      # runs go vet + golangci-lint (if available)
 
 
-.PHONY: build run docker clean tidy install test lint
+.PHONY: build run docker clean tidy install test lint 
 
 BINARY_NAME = pvc-audit
 SRC_DIR = src
+DIST_DIR = dist
 
 # Build the binary from src/
 build:
@@ -59,3 +60,28 @@ install: build
 	@mkdir -p $${GOPATH:-$$HOME/go}/bin
 	cp $(BINARY_NAME) $${GOPATH:-$$HOME/go}/bin/
 	@echo "✅ Installed. Make sure $${GOPATH:-$$HOME/go}/bin is in your PATH."
+
+# -----------------------
+# Release target
+# -----------------------
+
+release:
+	@echo "📦 Building all OS/arch binaries for release..."
+	@mkdir -p $(DIST_DIR)
+	@rm -rf $(DIST_DIR)/*
+	@echo "🔹 Linux..."
+	cd $(SRC_DIR) && GOOS=linux GOARCH=amd64 go build -o ../$(DIST_DIR)/$(BINARY_NAME) main.go
+	tar -czvf $(DIST_DIR)/$(BINARY_NAME)-linux-amd64.tar.gz -C $(DIST_DIR) $(BINARY_NAME)
+	@echo "🔹 macOS Intel..."
+	cd $(SRC_DIR) && GOOS=darwin GOARCH=amd64 go build -o ../$(DIST_DIR)/$(BINARY_NAME) main.go
+	tar -czvf $(DIST_DIR)/$(BINARY_NAME)-mac-amd64.tar.gz -C $(DIST_DIR) $(BINARY_NAME)
+	@echo "🔹 macOS Apple Silicon..."
+	cd $(SRC_DIR) && GOOS=darwin GOARCH=arm64 go build -o ../$(DIST_DIR)/$(BINARY_NAME) main.go
+	tar -czvf $(DIST_DIR)/$(BINARY_NAME)-mac-arm64.tar.gz -C $(DIST_DIR) $(BINARY_NAME)
+	@echo "🔹 Windows..."
+	cd $(SRC_DIR) && GOOS=windows GOARCH=amd64 go build -o ../$(DIST_DIR)/$(BINARY_NAME).exe main.go
+	zip -j $(DIST_DIR)/$(BINARY_NAME)-windows-amd64.zip $(DIST_DIR)/$(BINARY_NAME).exe
+	@echo "🔹 Generating SHA256 checksums..."
+	cd $(DIST_DIR) && shasum -a 256 *.tar.gz *.zip > SHA256SUMS.txt
+	@echo "✅ Release build complete. Files in $(DIST_DIR)/"
+
