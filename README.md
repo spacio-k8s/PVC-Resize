@@ -1,25 +1,32 @@
 # 🗂️ Spacio: PVC-Auditor
 
+## 🗂️ PVC-Auditor (OSS)
+
+Audit your Kubernetes PVCs to identify unused, orphaned, and over-provisioned storage. Free, safe, and cloud-agnostic.
+
+
 `pvc-auditor` is a Kubernetes CLI tool that **tracks PersistentVolumeClaim (PVC) usage and wastage**.  It helps platform teams, SREs, and developers **identify unused or underutilized storage**, reducing costs and improving efficiency.  
 
 
 ## 🌍 Context  
 Kubernetes makes it easy to allocate storage, but hard to track how much is actually used. Over time, this leads to:  
-- PVCs that are **over-provisioned** (e.g. 500 Gi allocated, only 20 Gi used)  
-- PVCs that are **unused or orphaned** (left behind after workload deletion)  
-- PVCs that are **expensive** to maintain across cloud providers  
+- Over-provisioned PVCs (e.g., 500 Gi allocated, only 20 Gi used)
+- Orphaned PVCs left behind after workload deletion
+- Wasted cloud costs and operational overhead
 
 For platform teams, this creates **hidden costs, wasted resources, and operational risk**.  
+
+**PVC-Auditor** gives platform teams, SREs, and developers **clear visibility** into PVC usage and wastage.
 
 **PVC-Auditor solves this by auditing your cluster’s PVCs and generating reports** with clear visibility into storage usage, waste, and savings potential.  
 
 ## 🚀 Why PVC-Auditor?  
 
-- **Visibility first** → know what’s allocated vs. actually used  
-- **Safe by design** → auditing only, no risky shrinking in OSS (shrinking in SaaS)  
-- **Cloud agnostic** → works with AWS EBS, GCP PD, Azure Disk, and any CSI driver  
-- **Contributor-friendly** → simple Go/Python codebase, great for students & OSS devs  
-- **Path to automation** → start with audits, upgrade to SaaS for policies + shrinking  
+- ⚡ **Visibility first** → know allocated vs actual usage
+- 🔒 **Safe** → auditing only (no shrinking in OSS)
+- 🌍 **Cloud agnostic** → AWS EBS, GCP PD, Azure Disk, any CSI driver
+- 🛠 **Contributor-friendly** → simple Go/Python codebase
+- 🚀 **Upgrade path** → OSS metrics feed Enterprise SaaS automation
 
 
 ## ⚖️ Open Source vs Enterprise  
