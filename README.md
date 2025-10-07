@@ -1,4 +1,4 @@
-# 🗂️ Spacio: PVC-Resize  
+# 🗂️ Spacio: PVC-Auditor
 
 `pvc-auditor` is a Kubernetes CLI tool that **tracks PersistentVolumeClaim (PVC) usage and wastage**.  It helps platform teams, SREs, and developers **identify unused or underutilized storage**, reducing costs and improving efficiency.  
 
